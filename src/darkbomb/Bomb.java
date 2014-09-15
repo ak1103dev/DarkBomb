@@ -7,6 +7,7 @@ public class Bomb {
 
 	private float x;
 	private float y;
+	public static int number = 10;
 	
 	private Image image;
 	
@@ -17,7 +18,7 @@ public class Bomb {
 	}
 
 	public void render() {
-		image.draw(x - 20, 480 - (y + 20));	
+		image.draw(x - 20, DarkBombGame.height - (y + 20));	
 	}
 	
 }

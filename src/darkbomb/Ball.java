@@ -19,16 +19,16 @@ public class Ball {
 	}
 
 	public void render() {
-		image.draw(x - 20, 480 - (y + 20));
+		image.draw(x - 20, DarkBombGame.height - (y + 20));
 	}
 
 	public void update(GameContainer container, int delta) {
 		
 		Input input = container.getInput();
-		UpdateMovement(input);		
+		updateMovement(input);		
 	}
 
-	public void UpdateMovement(Input input) {
+	public void updateMovement(Input input) {
 		if (input.isKeyDown(Input.KEY_LEFT)) { 
 			x -= v;
 	    }

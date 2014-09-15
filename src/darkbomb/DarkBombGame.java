@@ -9,11 +9,11 @@ import org.newdawn.slick.SlickException;
 
 public class DarkBombGame extends BasicGame{
 
-	private static final int width = 640;
-	private static final int height = 480;
+	public static final int width = 640;
+	public static final int height = 480;
 	
 	private Ball ball;
-	private Bomb bomb;
+	private Bomb[] bombs;
 	
 	public DarkBombGame(String title) {
 		super(title);
@@ -21,16 +21,29 @@ public class DarkBombGame extends BasicGame{
 
 	@Override
 	public void init(GameContainer container) throws SlickException {
-		Color background = new Color(128, 128, 128);
-		container.getGraphics().setBackground(background);
+		colorBG(container, 128, 128, 128);
 		ball = new Ball(40, height - 40);
-		bomb = new Bomb(width/2, height/2);
+		initBombs();
+	}
+
+	public void colorBG(GameContainer container,int i,int j,int k) {
+		Color background = new Color(i, j, k);
+		container.getGraphics().setBackground(background);
+	}
+
+	public void initBombs() throws SlickException {
+		bombs = new Bomb[Bomb.number];
+		for(int i = 0; i < Bomb.number; i++){
+			bombs[i] = new Bomb(width/2 + i*20, height/2 + i*20);
+		}
 	}
 	
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
+		for (Bomb bomb : bombs) {
+			bomb.render();
+		}		
 		ball.render();
-		bomb.render();		
 	}
 
 	@Override
