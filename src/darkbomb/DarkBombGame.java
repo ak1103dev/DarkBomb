@@ -28,8 +28,8 @@ public class DarkBombGame extends BasicGame{
 	}
 
 	@Override
-	public void update(GameContainer container, int delta) throws SlickException {
-		// TODO Auto-generated method stub
+	public void update(GameContainer container, int delta) throws SlickException { 
+		ball.update(container, delta);
 		
 	}
 	
@@ -38,7 +38,7 @@ public class DarkBombGame extends BasicGame{
 			DarkBombGame game = new DarkBombGame("Dark Bomb");
 			AppGameContainer appgc = new AppGameContainer(game);
 			appgc.setDisplayMode(width, height, false);
-			appgc.setMinimumLogicUpdateInterval(2000 / 60);
+			appgc.setMinimumLogicUpdateInterval(5);
 			appgc.start();
 	    } 
 	    catch (SlickException e) {
