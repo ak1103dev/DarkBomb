@@ -1,5 +1,7 @@
 package darkbomb;
 
+import java.util.Random;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
@@ -9,11 +11,13 @@ import org.newdawn.slick.SlickException;
 
 public class DarkBombGame extends BasicGame{
 
-	public static final int width = 640;
-	public static final int height = 480;
+	public static final int GAME_WIDTH = 640;
+	public static final int GAME_HEIGHT = 480;
 	
 	private Ball ball;
 	private Bomb[] bombs;
+	
+	Random random = new Random();
 	
 	public DarkBombGame(String title) {
 		super(title);
@@ -22,7 +26,7 @@ public class DarkBombGame extends BasicGame{
 	@Override
 	public void init(GameContainer container) throws SlickException {
 		colorBG(container, 128, 128, 128);
-		ball = new Ball(40, height - 40);
+		ball = new Ball(20, GAME_HEIGHT - 20);
 		initBombs();
 	}
 
@@ -34,7 +38,7 @@ public class DarkBombGame extends BasicGame{
 	public void initBombs() throws SlickException {
 		bombs = new Bomb[Bomb.number];
 		for(int i = 0; i < Bomb.number; i++){
-			bombs[i] = new Bomb(width/2 + i*20, height/2 + i*20);
+			bombs[i] = new Bomb(GAME_WIDTH/2, GAME_HEIGHT/2);
 		}
 	}
 	
@@ -56,7 +60,7 @@ public class DarkBombGame extends BasicGame{
 		try {
 			DarkBombGame game = new DarkBombGame("Dark Bomb");
 			AppGameContainer appgc = new AppGameContainer(game);
-			appgc.setDisplayMode(width, height, false);
+			appgc.setDisplayMode(GAME_WIDTH, GAME_HEIGHT, false);
 			appgc.setMinimumLogicUpdateInterval(5);
 			appgc.start();
 	    } 

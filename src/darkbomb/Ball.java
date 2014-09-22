@@ -9,7 +9,12 @@ public class Ball {
 
 	private float x;
 	private float y;
+	
+	private static final int BALL_WIDTH = 40;
+	private static final int BALL_HEIGHT = 40;
+	
 	private Image image;
+	
 	private final float v = 1;
 	
 	public Ball(float x, float y) throws SlickException {
@@ -19,7 +24,7 @@ public class Ball {
 	}
 
 	public void render() {
-		image.draw(x - 20, DarkBombGame.height - (y + 20));
+		image.draw(x - BALL_WIDTH/2, DarkBombGame.GAME_HEIGHT - (y + BALL_HEIGHT/2));
 	}
 
 	public void update(GameContainer container, int delta) {
