@@ -31,6 +31,7 @@ public class Ball {
 		
 		Input input = container.getInput();
 		updateMovement(input);		
+		isOutScreen();
 	}
 
 	public void updateMovement(Input input) {
@@ -48,4 +49,18 @@ public class Ball {
 		}
 	}
 	
+	public void isOutScreen(){
+		if(x < BALL_WIDTH/2){
+			x = BALL_WIDTH/2;
+		}
+		if(x > DarkBombGame.GAME_WIDTH - BALL_WIDTH/2){
+			x = DarkBombGame.GAME_WIDTH - BALL_WIDTH/2;
+		}
+		if(y < BALL_HEIGHT/2){
+			y = BALL_HEIGHT/2;
+		}
+		if(y > DarkBombGame.GAME_HEIGHT- BALL_HEIGHT/2){
+			y = DarkBombGame.GAME_HEIGHT - BALL_HEIGHT/2;
+		}
+	}
 }
