@@ -53,6 +53,11 @@ public class DarkBombGame extends BasicGame{
 	@Override
 	public void update(GameContainer container, int delta) throws SlickException { 
 		ball.update(container, delta);
+		for(int i = 0; i < Bomb.number; i++){
+			if(CollisionDetector.isCollide(ball.getX(), ball.getY(), bombs[i].getX(), bombs[i].getY())){
+				System.out.println("Colll");
+			}
+		}
 		
 	}
 	

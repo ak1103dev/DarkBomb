@@ -10,8 +10,8 @@ public class Ball {
 	private float x;
 	private float y;
 	
-	private static final int BALL_WIDTH = 40;
-	private static final int BALL_HEIGHT = 40;
+	public static final int BALL_WIDTH = 40;
+	public static final int BALL_HEIGHT = 40;
 	
 	private Image image;
 	
@@ -63,4 +63,13 @@ public class Ball {
 			y = DarkBombGame.GAME_HEIGHT - BALL_HEIGHT/2;
 		}
 	}
+	
+	public float getX(){
+		return x;
+	}
+	
+	public float getY(){
+		return y;
+	}
+	
 }

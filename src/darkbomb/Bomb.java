@@ -14,8 +14,8 @@ public class Bomb {
 	private int dx = -DarkBombGame.GAME_WIDTH/2 + BOMB_WIDTH/2 + random.nextInt(DarkBombGame.GAME_WIDTH - BOMB_WIDTH);
 	private int dy = -DarkBombGame.GAME_HEIGHT/2 + BOMB_HEIGHT/2 + random.nextInt(DarkBombGame.GAME_HEIGHT - BOMB_HEIGHT);
 	
-	private static final int BOMB_WIDTH = 40;
-	private static final int BOMB_HEIGHT = 40;
+	public static final int BOMB_WIDTH = 40;
+	public static final int BOMB_HEIGHT = 40;
 	
 	public static int number = 10;
 	
@@ -38,4 +38,13 @@ public class Bomb {
 	public float randomY() {
 		return dy;
 	}
+	
+	public float getX(){
+		return x;
+	}
+	
+	public float getY(){
+		return y;
+	}
+	
 }
