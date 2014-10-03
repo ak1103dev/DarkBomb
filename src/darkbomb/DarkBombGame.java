@@ -57,6 +57,8 @@ public class DarkBombGame extends BasicGame{
 			bomb.render();
 		}		
 		ball.render();
+		g.drawString("START", 0, 0);
+		g.drawString("FINISH", GAME_WIDTH - 60, GAME_HEIGHT -20);
 	}
 
 	@Override
