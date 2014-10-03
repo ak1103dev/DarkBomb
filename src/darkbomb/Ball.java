@@ -72,4 +72,8 @@ public class Ball {
 		return y;
 	}
 	
+	public void setY(){
+		++y;
+	}
+	
 }

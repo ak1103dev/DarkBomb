@@ -7,6 +7,7 @@ import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 public class DarkBombGame extends BasicGame{
@@ -15,9 +16,13 @@ public class DarkBombGame extends BasicGame{
 	public static final int GAME_HEIGHT = 480;
 	
 	private Ball ball;
+	private DeadBall dead;
 	private Bomb[] bombs;
 	
 	Random random = new Random();
+	
+	private boolean isStarted;
+	private boolean isGameover;
 	
 	public DarkBombGame(String title) {
 		super(title);
@@ -26,6 +31,10 @@ public class DarkBombGame extends BasicGame{
 	@Override
 	public void init(GameContainer container) throws SlickException {
 		colorBG(container, 128, 128, 128);
+		
+		isStarted = false;
+		isGameover = false;
+		
 		ball = new Ball(20, GAME_HEIGHT - 20);
 		initBombs();
 	}
@@ -52,13 +61,36 @@ public class DarkBombGame extends BasicGame{
 
 	@Override
 	public void update(GameContainer container, int delta) throws SlickException { 
-		ball.update(container, delta);
+		//System.out.println(delta);
+		if(isStarted){
+			ball.update(container, delta);
+			checkCollision();
+			whenGameover();
+		}
+	}
+
+	public void whenGameover() {
+		if(isGameover){
+			System.out.println("Gameover");
+			isStarted = false;
+		//dead = new DeadBall(delta, delta);
+		}
+	}
+	
+	@Override
+	public void keyPressed(int key, char c) {
+		if (key == Input.KEY_ENTER) {
+			isStarted = true;
+	    }
+	}
+
+	public void checkCollision() {
 		for(int i = 0; i < Bomb.number; i++){
 			if(CollisionDetector.isCollide(ball.getX(), ball.getY(), bombs[i].getX(), bombs[i].getY())){
-				System.out.println("Colll");
+				//System.out.println("Collide");
+				isGameover = true;
 			}
 		}
-		
 	}
 	
 	public static void main(String[] args) {
