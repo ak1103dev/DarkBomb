@@ -37,9 +37,13 @@ public class DarkBombGame extends BasicGame{
 		isGameover = false;
 		ballIsClosedBomb = false;
 		
+		initBall();
+		initBombs();
+	}
+
+	public void initBall() throws SlickException {
 		ball = new Ball(20, GAME_HEIGHT - 20);
 		warn = new WarningBall(ball.getX(), ball.getY());
-		initBombs();
 	}
 
 	public void colorBG(GameContainer container,int i,int j,int k) {
@@ -104,7 +108,16 @@ public class DarkBombGame extends BasicGame{
 		if (key == Input.KEY_ENTER) {
 			System.out.println("Start");
 			isStarted = true;
+			startNewGame();
 	    }
+	}
+
+	public void startNewGame() {
+		try {
+			initBall();
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void checkCollision() {
