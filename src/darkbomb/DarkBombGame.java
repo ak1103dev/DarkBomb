@@ -16,13 +16,14 @@ public class DarkBombGame extends BasicGame{
 	public static final int GAME_HEIGHT = 480;
 	
 	private Ball ball;
-	private DeadBall dead;
+	private WarningBall warn;
 	private Bomb[] bombs;
 	
 	Random random = new Random();
 	
 	private boolean isStarted;
 	private boolean isGameover;
+	private boolean ballIsClosedBomb;
 	
 	public DarkBombGame(String title) {
 		super(title);
@@ -34,8 +35,10 @@ public class DarkBombGame extends BasicGame{
 		
 		isStarted = false;
 		isGameover = false;
+		ballIsClosedBomb = false;
 		
 		ball = new Ball(20, GAME_HEIGHT - 20);
+		warn = new WarningBall(ball.getX(), ball.getY());
 		initBombs();
 	}
 
@@ -53,12 +56,28 @@ public class DarkBombGame extends BasicGame{
 	
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
-		for (Bomb bomb : bombs) {
-			bomb.render();
-		}		
-		ball.render();
 		g.drawString("START", 0, 0);
 		g.drawString("FINISH", GAME_WIDTH - 60, GAME_HEIGHT -20);
+		
+		renderBombs();	
+		renderBall();
+	}
+
+	public void renderBall() {
+		if(ballIsClosedBomb){	
+			//System.out.println("close");
+			warn.render();
+		}
+		if(!ballIsClosedBomb){
+			//System.out.println("not close");
+			ball.render();
+		}
+	}
+
+	public void renderBombs() {
+		for (Bomb bomb : bombs) {
+			bomb.render();
+		}
 	}
 
 	@Override
@@ -66,6 +85,7 @@ public class DarkBombGame extends BasicGame{
 		//System.out.println(delta);
 		if(isStarted){
 			ball.update(container, delta);
+			warn.update(container, delta);
 			checkCollision();
 			whenGameover();
 		}
@@ -82,14 +102,25 @@ public class DarkBombGame extends BasicGame{
 	@Override
 	public void keyPressed(int key, char c) {
 		if (key == Input.KEY_ENTER) {
+			System.out.println("Start");
 			isStarted = true;
 	    }
 	}
 
 	public void checkCollision() {
+		int close = 0;
 		for(int i = 0; i < Bomb.number; i++){
-			if(CollisionDetector.isCollide(ball.getX(), ball.getY(), bombs[i].getX(), bombs[i].getY())){
-				//System.out.println("Collide");
+			if(CheckPosition.isClosedBomb(ball.getX(), ball.getY(), bombs[i].getX(), bombs[i].getY())){
+				//System.out.println("close");
+				close++;
+			}
+			if(close > 0){
+				ballIsClosedBomb = true;
+			}else{
+				ballIsClosedBomb = false;
+			}
+			
+			if(CheckPosition.isCollide(ball.getX(), ball.getY(), bombs[i].getX(), bombs[i].getY())){
 				isGameover = true;
 			}
 		}
