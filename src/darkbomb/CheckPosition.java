@@ -19,4 +19,12 @@ public class CheckPosition {
 			return false;
 		}
 	}
+	
+	static boolean isFinish(float ballX, float ballY) {
+		if(ballX == DarkBombGame.GAME_WIDTH - 20 && ballY == 20){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }

@@ -23,6 +23,7 @@ public class DarkBombGame extends BasicGame{
 	
 	private boolean isStarted;
 	private boolean isGameover;
+
 	private boolean ballIsClosedBomb;
 	
 	public DarkBombGame(String title) {
@@ -31,10 +32,11 @@ public class DarkBombGame extends BasicGame{
 
 	@Override
 	public void init(GameContainer container) throws SlickException {
-		colorBG(container, 128, 128, 128);
+		//colorBG(container, 128, 128, 128);
 		
 		isStarted = false;
 		isGameover = false;
+
 		ballIsClosedBomb = false;
 		
 		initBall();
@@ -64,7 +66,7 @@ public class DarkBombGame extends BasicGame{
 		g.drawString("FINISH", GAME_WIDTH - 60, GAME_HEIGHT -20);
 		
 		renderBombs();	
-		renderBall();
+		renderBall();									
 	}
 
 	public void renderBall() {
@@ -91,11 +93,15 @@ public class DarkBombGame extends BasicGame{
 			ball.update(container, delta);
 			warn.update(container, delta);
 			checkCollision();
-			whenGameover();
+			isStopwhenGameover();
+			if(CheckPosition.isFinish(ball.getX(), ball.getY())){
+				System.out.println("You win");
+				isGameover = true;
+			}	
 		}
 	}
 
-	public void whenGameover() {
+	public void isStopwhenGameover() {
 		if(isGameover){
 			System.out.println("Gameover");
 			isStarted = false;
@@ -108,6 +114,7 @@ public class DarkBombGame extends BasicGame{
 		if (key == Input.KEY_ENTER) {
 			System.out.println("Start");
 			isStarted = true;
+			isGameover = false;
 			startNewGame();
 	    }
 	}
@@ -116,6 +123,12 @@ public class DarkBombGame extends BasicGame{
 		try {
 			initBall();
 		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+		try {
+			initBombs();
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -72,4 +72,14 @@ public class CheckPositionTest {
 	public void testBallVerryClosedLeftBomb() {
 		assertTrue(CheckPosition.isClosedBomb(45, 0, 0, 0));
 	}
+	
+	/*Test isFinish*/
+	@Test
+	public void testIsFinish() {
+		assertTrue(CheckPosition.isFinish(DarkBombGame.GAME_WIDTH - 20, 20));
+	}
+	
+	public void testIsNotFinish() {
+		assertFalse(CheckPosition.isFinish(DarkBombGame.GAME_WIDTH - 50, 50));
+	}
 }

@@ -25,6 +25,7 @@ public class Ball {
 
 	public void render() {
 		green.draw(x - BALL_WIDTH/2, DarkBombGame.GAME_HEIGHT - (y + BALL_HEIGHT/2));
+		//System.out.println(x + " " + y);
 	}
 
 	public void update(GameContainer container, int delta) {
