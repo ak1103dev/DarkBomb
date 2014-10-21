@@ -23,6 +23,7 @@ public class DarkBombGame extends BasicGame{
 	
 	private boolean isStarted;
 	private boolean isGameover;
+	private boolean isFinished;
 
 	private boolean ballIsClosedBomb;
 	
@@ -32,9 +33,10 @@ public class DarkBombGame extends BasicGame{
 
 	@Override
 	public void init(GameContainer container) throws SlickException {
-		
+		colorBG(container, 100, 100, 100);
 		isStarted = false;
 		isGameover = false;
+		isFinished = false;
 
 		ballIsClosedBomb = false;
 		
@@ -66,7 +68,17 @@ public class DarkBombGame extends BasicGame{
 		g.drawString("FINISH", GAME_WIDTH - 60, GAME_HEIGHT -20);
 		
 		renderBombs();	
-		renderBall();									
+		renderBall();			
+		
+		if(!isStarted){
+			g.drawString("Press Enter To Start Game", GAME_WIDTH/2-125, GAME_HEIGHT/2);
+		}
+		if(isGameover){
+			g.drawString("GAME OVER", GAME_WIDTH/2-50, 100);
+		}
+		if(isFinished){
+			g.drawString("YOU WIN", GAME_WIDTH/2-45, 100);
+		}
 	}
 
 	public void renderBall() {
@@ -96,7 +108,7 @@ public class DarkBombGame extends BasicGame{
 			isStopwhenGameover(container);
 			if(CheckPosition.isFinish(ball.getX(), ball.getY())){
 				System.out.println("You win");
-				isGameover = true;
+				isFinished = true;
 			}	
 			if(isStarted){
 				colorBG(container, 0, 0, 0);
@@ -105,7 +117,7 @@ public class DarkBombGame extends BasicGame{
 	}
 
 	public void isStopwhenGameover(GameContainer container) {
-		if(isGameover){
+		if(isGameover || isFinished){
 			System.out.println("Gameover");
 			isStarted = false;
 			colorBG(container, 128, 128, 128);
@@ -119,6 +131,7 @@ public class DarkBombGame extends BasicGame{
 			System.out.println("Start");
 			isStarted = true;
 			isGameover = false;
+			isFinished = false;
 			startNewGame();
 	    }
 	}
