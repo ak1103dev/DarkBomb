@@ -32,7 +32,6 @@ public class DarkBombGame extends BasicGame{
 
 	@Override
 	public void init(GameContainer container) throws SlickException {
-		//colorBG(container, 128, 128, 128);
 		
 		isStarted = false;
 		isGameover = false;
@@ -41,6 +40,7 @@ public class DarkBombGame extends BasicGame{
 		
 		initBall();
 		initBombs();
+		
 	}
 
 	public void initBall() throws SlickException {
@@ -93,18 +93,22 @@ public class DarkBombGame extends BasicGame{
 			ball.update(container, delta);
 			warn.update(container, delta);
 			checkCollision();
-			isStopwhenGameover();
+			isStopwhenGameover(container);
 			if(CheckPosition.isFinish(ball.getX(), ball.getY())){
 				System.out.println("You win");
 				isGameover = true;
 			}	
+			if(isStarted){
+				colorBG(container, 0, 0, 0);
+			}
 		}
 	}
 
-	public void isStopwhenGameover() {
+	public void isStopwhenGameover(GameContainer container) {
 		if(isGameover){
 			System.out.println("Gameover");
 			isStarted = false;
+			colorBG(container, 128, 128, 128);
 		//dead = new DeadBall(delta, delta);
 		}
 	}
